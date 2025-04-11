@@ -1,0 +1,14 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;  /* Centers horizontally */
+  align-items: flex-start;  /* Aligns to the top */
+  background-color: #f0f0f0; /* Optional: add a background color */
+}
+
+canvas {
+  display: block;
+  margin-top: 50px
+}
