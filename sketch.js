@@ -51,7 +51,7 @@ function preload() {
   body = loadFont("assets/SourceSans.ttf");
 
   // map
-  bgImage = loadImage("assets/Map.png");
+  bgImage = loadImage("assets/thismap.png");
 
   // sprites and animations
   rock = loadImage("assets/rock.png");
@@ -74,15 +74,21 @@ function preload() {
 
   enemySprites.right = loadSpriteSheet("assets/batright.png", 42, 43, 3);
   enemySprites.left = loadSpriteSheet("assets/batleft.png", 42, 43, 3);
+
+  enemySprites.brainright = loadSpriteSheet("assets/brainwalkright.png", 46, 96, 6);
+  enemySprites.brainleft = loadSpriteSheet("assets/brainwalkleft.png", 46, 96, 6);
 }
 
 function setup() {
-  createCanvas(1000, 680);
+  let canvas = createCanvas(1000, 680);
+
+  canvas.parent('game-container');
+
   // prevent blurriness on player sprite (scaled up)
   noSmooth();
 
   // for proper start screen gif placement
-  const canvas = select('canvas');
+  //const canvas = select('canvas');
   let canvasX = canvas.elt.offsetLeft;
   let canvasY = canvas.elt.offsetTop;
   bgStart = createImg("assets/StartScreen.gif");
@@ -387,7 +393,7 @@ class Enemy {
     this.sprite.shapeColor = color(255, 0, 0);
     this.sprite.addAnimation("right", enemySprites.right);
     this.sprite.addAnimation("left", enemySprites.left);
-    this.sprite.scale = 1.5;
+    this.sprite.scale = 1.3;
     this.speed = 3;
     this.lastDirection = "right";
   }
@@ -417,18 +423,36 @@ class Enemy {
 
 class BigEnemy {
   constructor(x, y) {
-    this.sprite = createSprite(x, y, 60, 80);
+    this.sprite = createSprite(x, y, 46, 96);
     this.sprite.shapeColor = color(0, 255, 0);
+    this.sprite.addAnimation("right", enemySprites.brainright);
+    this.sprite.addAnimation("left", enemySprites.brainleft);
+    this.sprite.animations["left"].frameDelay = 10;
+    this.sprite.animations["right"].frameDelay = 10;
+
+    this.sprite.scale = 1.3;
     this.speed = 2;
+    this.lastDirection = "right";
   }
 
   moveTowardPlayer(player) {
-    let angle = atan2(
-      player.sprite.position.y - this.sprite.position.y,
-      player.sprite.position.x - this.sprite.position.x
-    );
+    let dx = player.sprite.position.x - this.sprite.position.x;
+    let dy = player.sprite.position.y - this.sprite.position.y;
+    let angle = atan2(dy, dx);
+
+    // velocity for smoother movement
     this.sprite.velocity.x = cos(angle) * this.speed;
     this.sprite.velocity.y = sin(angle) * this.speed;
+
+    if (abs(dx) >= 1) {
+      if (dx < 0 && this.lastDirection !== "left") {
+        this.sprite.changeAnimation("left");
+        this.lastDirection = "left";
+      } else if (dx > 0 && this.lastDirection !== "right") {
+        this.sprite.changeAnimation("right");
+        this.lastDirection = "right";
+      }
+    }
   }
 }
 
@@ -501,7 +525,7 @@ function showWinScreen() {
 
 // start screen, press spacebar to start game
 function keyPressed() {
-  if (key === ' ' && gameState === 0) {
+  if (key === 'Enter' && gameState === 0) {
     gameState = 1;
   }
 

@@ -5,23 +5,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Solitude</title>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Micro+5&display=swap" rel="stylesheet">
 
+  <title>Solitude</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
   <script src="https://molleindustria.github.io/p5.play/lib/p5.play.js"></script>
-
-
   <link rel="stylesheet" type="text/css" href="style.css">
-
-  <!-- <script src="libraries/p5.min.js"></script>
-  <script src="libraries/p5.sound.min.js"></script> -->
-
 </head>
 
 <body>
+  <div id="toggle">
+    <p>press 'm' to toggle background sound</p>
+  </div>
+
+  <div id="game-container"></div>
+
+  <div id="info">
+   
+    <h1>Story</h1>
+    <p>A lone soul drifts through a desolate world, fighting demons that manifest from their deepest fears and memories.<br><br>
+      In the end, solitude reveals the true enemy: oneself.</p>
+    <br><br>
+
+    <h1>Controls</h1>
+    <p><strong>WASD</strong> - move</p>
+    <p><strong>Mouse left-click</strong> - attack (attacks in direction facing)</p>
+    <br><br>
+
+    <h1>Instructions</h1>
+    <p>Overcome 50 demons. Progress isn’t just survival—it’s self-discovery.</p>
+  </div>
+
   <script src="sketch.js"></script>
 </body>
+
 
 </html>
